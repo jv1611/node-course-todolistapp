@@ -30,13 +30,13 @@ Todo.findById(id).then((todo) => {
 }).catch((e) => console.log(e));
 
 // User.findById
-var uid = '5970d0f52c5c2a031cbcd00a';
+var id = '5970d0f52c5c2a031cbcd00a';
 
-if(!ObjectID.isValid(uid)) {
+if(!ObjectID.isValid(id)) {
     return console.log('Deze user ID is not valid');
 };
 
-User.findById(uid).then((user) => {
+User.findById(id).then((user) => {
    // console.log('User gegevens', user);
    console.log(JSON.stringify(user, undefined, 2));
 }).catch((e) => console.log(e));
