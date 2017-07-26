@@ -71,7 +71,7 @@ app.delete('/todos/:id', (req, res) => {
          return res.status(404).send();
       }
       console.log('Deze wordt verwijderd.');
-      res.send(todo);
+      res.send({todo});
    }).catch((e) => {
       console.log('Er ging iets fout');
       res.status(400).send();
