@@ -41,18 +41,40 @@ app.get('/todos/:id', (req, res) => {
    // Valid id using isValid
    if(!ObjectID.isValid(id)) {
       // return console.log('Id is not valid.');
-      return res.sendStatus(404).send();
+      return res.status(404).send();
    }
 
    Todo.findById(id).then((todo) => {
       if(!todo){
          // return console.log('No Todos found.');
-         return res.sendStatus(400).send();
+         return res.status(400).send();
       }
       console.log('Todo By Id: ', todo.text);
       res.send({todo});
    }).catch((e) => {
-      res.sendStatus(400).send();
+      res.status(400).send();
+   });
+});
+
+app.delete('/todos/:id', (req, res) => {
+   // get id
+   var id = req.params.id;
+   // validate id => nog 404
+   if(!ObjectID.isValid(id)) {
+      console.log('Geen geldige id');
+      return res.status(400).send();
+   }
+   // remove todo by id
+   Todo.findByIdAndRemove(id).then((todo) => {
+      if(!todo) {
+         console.log('Geen todo gevonden');
+         return res.status(404).send();
+      }
+      console.log('Deze wordt verwijderd.');
+      res.send(todo);
+   }).catch((e) => {
+      console.log('Er ging iets fout');
+      res.status(400).send();
    });
 });
 
