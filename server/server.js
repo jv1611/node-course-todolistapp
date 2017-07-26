@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
@@ -78,6 +79,32 @@ app.delete('/todos/:id', (req, res) => {
    });
 });
 
+app.patch('/todos/:id', (req, res) => {
+   var id = req.params.id;
+   var body = _.pick(req.body, ['text', 'completed']);
+
+   if(!ObjectID.isValid(id)) {
+      console.log('Geen geldige id');
+      return res.status(400).send();
+   }
+
+   if(_.isBoolean(body.completed) && body.completed) {
+      body.completedAt = new Date().getTime();
+   } else {
+      body.completed = false;
+      body.completedAt = null;
+   }
+
+   Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+      if(!todo) {
+         return res.status(404).send();
+      }
+      res.send({todo});
+   }).catch((e) => {
+      console.log('Er ging iets fout bij de app.patch');
+      res.status(400);
+   });
+});
 
 app.listen(port, () => {
    console.log(`Server has started on port ${port}.`);
