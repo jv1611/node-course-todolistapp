@@ -76,22 +76,29 @@ UserSchema.pre('save', function (next) {
 
    if (user.isModified('password')) {
       bcrypt.genSalt(10, (err, salt) => {
-         bcrypt.hash(user.password, salt, (err, hash) => {
-            console.log(hash);
+         bcrypt.hash(user.password, salt, (err, hash2) => {
+            // console.log(hash2);
             // user.password = 'hash1';
-            user.password = hash;
+            user.password = hash2;
+            // console.log('****');
+            // console.log(user.password);
+            // console.log('******');
             next();
          });
       });
-      console.log(user.password);
-      console.log(user.password);
+      // console.log(user.password);
+      // console.log(user.password);
+      // next();
+
+      // NOG VERDER TESTEN WERKT NOG NIET GOED
 
       // user.password = hash;
-      next();
+
    } else {
        next();
    }
 });
+
 
 var User = mongoose.model('User', UserSchema);
 // email, password, tokens van UserSchema stonden eerst allemaal hieronder.
