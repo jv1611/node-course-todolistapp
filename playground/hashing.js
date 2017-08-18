@@ -6,15 +6,20 @@ var password = '123abc!';
 
 bcrypt.genSalt(12, (err, salt) => {
    bcrypt.hash(password, salt, (err, hash1) => {
-      console.log(hash1);
+      console.log('Hash1: ' +hash1);
       var password = hash1;
-      console.log('***');
-      console.log(password);
-      console.log('*****');
+      console.log('*** In bcrypt boven');
+      console.log('Password: ' +password);
+      console.log('***** In bcrypt onder');
    });
 });
 
-console.log('*********');
+setTimeout(() => {
+   console.log('********* In setTimeout');
+   console.log(password);
+}, 2000);
+
+console.log('********* buiten');
 console.log(password);
 
 var hashedPassword = '$2a$10$pUuzZDejugSR3WV5oukxMOueeFB0I80C0NYJWke0t.awvra.yrhlS';
