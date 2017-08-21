@@ -289,7 +289,7 @@ describe('POST /users/login', () => {
       .post('/users/login')
       .send({
          email: users[1].email,
-         password: 1
+         password: 1 // Dit is dus niet geldig
       })
       .expect(400)
       .expect((res) => {
