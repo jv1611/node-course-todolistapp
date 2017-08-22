@@ -9,7 +9,7 @@ var authenticate = (req, res, next) => {
       }
       // res.send(user);
       req.user = user;
-      req.token = token; // wordt nu hieronder gebruikt app.get
+      req.token = token; // Hier wordt dus een token verstrekt aan de user
       next();
    }).catch((e) => {
       res.status(401).send();
